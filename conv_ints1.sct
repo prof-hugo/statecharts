@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="__FDmQOAFEeqCs-vUBETekw" specification="@CycleBased(500)&#xA;//@EventDriven&#xA;// Use the event driven execution model.&#xA;// Runs a run-to-completion step&#xA;// each time an event is raised.&#xA;// Switch to cycle based behavior&#xA;// by specifying '@CycleBased(200)'&#xA;// instead.&#xA;&#xA;@ChildFirstExecution&#xA;// In composite states, execute&#xA;// child states first.&#xA;// @ParentFirstExecution does the opposite.&#xA;&#xA;internal:&#xA;event IRQ&#xA;event return_from_interrupt&#xA;var stack_size : integer = 0&#xA;&#xA;interface cpu:&#xA;var EN : boolean = false     // int enable bit&#xA;var PEND: boolean = false // int pending bit&#xA;" name="conv_ints">
+  <sgraph:Statechart xmi:id="__FDmQOAFEeqCs-vUBETekw" specification="@CycleBased(500)&#xA;//@EventDriven&#xA;// Use the event driven execution model.&#xA;// Runs a run-to-completion step&#xA;// each time an event is raised.&#xA;// Switch to cycle based behavior&#xA;// by specifying '@CycleBased(200)'&#xA;// instead.&#xA;&#xA;@ChildFirstExecution&#xA;// In composite states, execute&#xA;// child states first.&#xA;// @ParentFirstExecution does the opposite.&#xA;&#xA;internal:&#xA;event IRQ&#xA;event ret_from_int&#xA;var stack_size : integer = 0&#xA;&#xA;interface cpu:&#xA;var EN : boolean = false     // int enable bit&#xA;var PEND: boolean = false // int pending bit&#xA;" name="conv_ints">
     <regions xmi:id="__FcAw-AFEeqCs-vUBETekw" name="main region">
-      <vertices xsi:type="sgraph:State" xmi:id="_INua8OAGEeqCs-vUBETekw" specification="IRQ / cpu.PEND =true" name="CPU" incomingTransitions="_TvmisOAGEeqCs-vUBETekw">
-        <regions xmi:id="_INvCAOAGEeqCs-vUBETekw" name="region irq1">
+      <vertices xsi:type="sgraph:State" xmi:id="_INua8OAGEeqCs-vUBETekw" specification="IRQ / cpu.PEND = true" name="CPU" incomingTransitions="_TvmisOAGEeqCs-vUBETekw">
+        <regions xmi:id="_INvCAOAGEeqCs-vUBETekw" name="region irq">
           <vertices xsi:type="sgraph:State" xmi:id="__FfEF-AFEeqCs-vUBETekw" name="Inactive" incomingTransitions="__FfrJuAFEeqCs-vUBETekw _dfK_UOAGEeqCs-vUBETekw">
             <outgoingTransitions xmi:id="_YTvcQOAGEeqCs-vUBETekw" specification="[cpu.EN &amp;&amp; cpu.PEND] / stack_size++" target="_A5IzAOAGEeqCs-vUBETekw"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_A5IzAOAGEeqCs-vUBETekw" specification="entry / cpu.PEND = false&#xD;&#xA;entry / stack_size += 4&#xD;&#xA;exit / stack_size -= 4" name="Active" incomingTransitions="_YTvcQOAGEeqCs-vUBETekw">
-            <outgoingTransitions xmi:id="_dfK_UOAGEeqCs-vUBETekw" specification="return_from_interrupt / stack_size--" target="__FfEF-AFEeqCs-vUBETekw"/>
+            <outgoingTransitions xmi:id="_dfK_UOAGEeqCs-vUBETekw" specification="ret_from_int / stack_size--" target="__FfEF-AFEeqCs-vUBETekw"/>
           </vertices>
           <vertices xsi:type="sgraph:Entry" xmi:id="__FedA-AFEeqCs-vUBETekw">
             <outgoingTransitions xmi:id="__FfrJuAFEeqCs-vUBETekw" target="__FfEF-AFEeqCs-vUBETekw"/>
