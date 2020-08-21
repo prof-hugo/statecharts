@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="__FDmQOAFEeqCs-vUBETekw" specification="@CycleBased(500)&#xA;//@EventDriven&#xA;// Use the event driven execution model.&#xA;// Runs a run-to-completion step&#xA;// each time an event is raised.&#xA;// Switch to cycle based behavior&#xA;// by specifying '@CycleBased(200)'&#xA;// instead.&#xA;&#xA;@ChildFirstExecution&#xA;// In composite states, execute&#xA;// child states first.&#xA;// @ParentFirstExecution does the opposite.&#xA;&#xA;internal:&#xA;event IRQ0&#xA;event IRQ1&#xA;event ret_from_int0&#xA;event ret_from_int1&#xA;&#xA;const IBIT0 : integer = 0x1&#xA;const IBIT1 : integer = 0x2&#xA;const IPRIO0 : integer = 1 // IRQ1 priority&#xA;const IPRIO1 : integer = 2 // IRQ2 priority&#xA;&#xA;var curr_prio : integer = 0&#xA;var prev_prio : integer = 0&#xA;var stack_size : integer = 0&#xA;&#xA;interface cpu:&#xA;var EN : integer = 0x0     // int enable reg&#xA;var PEND: integer = 0x0 // int pending reg&#xA;" name="conv_ints2">
+  <sgraph:Statechart xmi:id="__FDmQOAFEeqCs-vUBETekw" specification="@CycleBased(500)&#xA;//@EventDriven&#xA;// Use the event driven execution model.&#xA;// Runs a run-to-completion step&#xA;// each time an event is raised.&#xA;// Switch to cycle based behavior&#xA;// by specifying '@CycleBased(200)'&#xA;// instead.&#xA;&#xA;@ChildFirstExecution&#xA;// In composite states, execute&#xA;// child states first.&#xA;// @ParentFirstExecution does the opposite.&#xA;&#xA;internal:&#xA;const IBIT0 : integer = 0x1&#xA;const IBIT1 : integer = 0x2&#xA;const IPRIO0 : integer = 1 // IRQ1 priority&#xA;const IPRIO1 : integer = 2 // IRQ2 priority&#xA;&#xA;var curr_prio : integer = 0&#xA;var prev_prio : integer = 0&#xA;var stack_size : integer = 0&#xA;&#xA;event IRQ0&#xA;event IRQ1&#xA;event ret_from_int0&#xA;event ret_from_int1&#xA;&#xA;interface cpu:&#xA;var EN : integer = 0x0     // int enable reg&#xA;var PEND: integer = 0x0 // int pending reg&#xA;" name="conv_ints2">
     <regions xmi:id="__FcAw-AFEeqCs-vUBETekw" name="main region">
       <vertices xsi:type="sgraph:State" xmi:id="_INua8OAGEeqCs-vUBETekw" specification="IRQ0 / cpu.PEND |= IBIT0&#xD;&#xA;IRQ1 / cpu.PEND |= IBIT1" name="CPU" incomingTransitions="_TvmisOAGEeqCs-vUBETekw">
-        <regions xmi:id="_hMuxgOFLEeqsStu_E7somQ" name="region irq1">
+        <regions xmi:id="_hMuxgOFLEeqsStu_E7somQ" name="irq1 state">
           <vertices xsi:type="sgraph:State" xmi:id="_wxeRwOFLEeqsStu_E7somQ" name="Inactive" incomingTransitions="_wxgG8eFLEeqsStu_E7somQ _wxfgFeFLEeqsStu_E7somQ">
             <outgoingTransitions xmi:id="_wxeRw-FLEeqsStu_E7somQ" specification="[((cpu.EN &amp; IBIT1) == IBIT1) &amp;&amp; ((cpu.PEND &amp; IBIT1) == IBIT1) &amp;&amp;&#xD;&#xA;(curr_prio &lt; IPRIO1)] / stack_size++; prev_prio = curr_prio; curr_prio = IPRIO1" target="_wxff4OFLEeqsStu_E7somQ"/>
           </vertices>
@@ -14,7 +14,7 @@
             <outgoingTransitions xmi:id="_wxgG8eFLEeqsStu_E7somQ" target="_wxeRwOFLEeqsStu_E7somQ"/>
           </vertices>
         </regions>
-        <regions xmi:id="_INvCAOAGEeqCs-vUBETekw" name="region irq0">
+        <regions xmi:id="_INvCAOAGEeqCs-vUBETekw" name="irq0 state">
           <vertices xsi:type="sgraph:State" xmi:id="__FfEF-AFEeqCs-vUBETekw" name="Inactive" incomingTransitions="__FfrJuAFEeqCs-vUBETekw _dfK_UOAGEeqCs-vUBETekw">
             <outgoingTransitions xmi:id="_YTvcQOAGEeqCs-vUBETekw" specification="[((cpu.EN &amp; IBIT0) == IBIT0) &amp;&amp; ((cpu.PEND &amp; IBIT0) == IBIT0) &amp;&amp;&#xD;&#xA;(curr_prio &lt; IPRIO0)] / stack_size++; curr_prio = IPRIO0" target="_A5IzAOAGEeqCs-vUBETekw"/>
           </vertices>
